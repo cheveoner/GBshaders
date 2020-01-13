@@ -22,22 +22,13 @@
 #endif
 
 COMPAT_ATTRIBUTE vec4 VertexCoord;
-COMPAT_ATTRIBUTE vec4 COLOR;
 COMPAT_ATTRIBUTE vec4 TexCoord;
-COMPAT_VARYING vec4 COL0;
 COMPAT_VARYING vec4 TEX0;
  
 uniform mat4 MVPMatrix;
-uniform COMPAT_PRECISION int FrameDirection;
-uniform COMPAT_PRECISION int FrameCount;
 uniform COMPAT_PRECISION vec2 OutputSize;
 uniform COMPAT_PRECISION vec2 TextureSize;
 uniform COMPAT_PRECISION vec2 InputSize;
-COMPAT_VARYING vec2 tex_border;
-
-#define vTexCoord TEX0.xy
-#define SourceSize vec4(TextureSize, 1.0 / TextureSize) //either TextureSize or InputSize
-#define outsize vec4(OutputSize, 1.0 / OutputSize)
 
 #ifdef PARAMETER_UNIFORM
 // All parameter floats need to have COMPAT_PRECISION in front of them
@@ -82,22 +73,12 @@ precision mediump float;
 #define COMPAT_PRECISION
 #endif
 
-uniform COMPAT_PRECISION int FrameDirection;
-uniform COMPAT_PRECISION int FrameCount;
-uniform COMPAT_PRECISION vec2 OutputSize;
-uniform COMPAT_PRECISION vec2 TextureSize;
-uniform COMPAT_PRECISION vec2 InputSize;
 uniform sampler2D Texture;
-uniform sampler2D BORDER;
 COMPAT_VARYING vec4 TEX0;
-COMPAT_VARYING vec2 tex_border;
 
 // compatibility #defines
 #define Source Texture
 #define vTexCoord TEX0.xy
-
-#define SourceSize vec4(TextureSize, 1.0 / TextureSize) //either TextureSize or InputSize
-#define outsize vec4(OutputSize, 1.0 / OutputSize)
 
 void main()
 {

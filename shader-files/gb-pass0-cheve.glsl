@@ -218,7 +218,7 @@ void main()
     out_color.a *= is_on_dot;
 	
 	// Cheve: test 1-pass shader for rpi
-	out_color = vec4(foreground_color * rgb_to_alpha * is_on_dot, 1.0);
+	//out_color = vec4(foreground_color * rgb_to_alpha * is_on_dot, 1.0);
 
     FragColor = out_color;
 } 
