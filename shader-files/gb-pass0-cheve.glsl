@@ -127,6 +127,8 @@ precision mediump float;
 #define COMPAT_PRECISION
 #endif
 
+// #define MORE_FRAMES // to use extra frames for ghosting
+
 uniform COMPAT_PRECISION vec2 OutputSize;
 uniform COMPAT_PRECISION vec2 TextureSize;
 uniform sampler2D Texture;
@@ -134,10 +136,12 @@ uniform sampler2D COLOR_PALETTE;
 uniform sampler2D PrevTexture;
 uniform sampler2D Prev1Texture;
 uniform sampler2D Prev2Texture;
-//uniform sampler2D Prev3Texture;
-//uniform sampler2D Prev4Texture;
-//uniform sampler2D Prev5Texture;
-//uniform sampler2D Prev6Texture;
+#ifdef MORE_FRAMES
+uniform sampler2D Prev3Texture;
+uniform sampler2D Prev4Texture;
+uniform sampler2D Prev5Texture;
+uniform sampler2D Prev6Texture;
+#endif
 COMPAT_VARYING vec4 TEX0;
 COMPAT_VARYING vec2 dot_size;
 COMPAT_VARYING vec2 one_texel;
@@ -166,10 +170,12 @@ uniform COMPAT_PRECISION float response_time;
 #define prev0_rgb abs(1.0 - COMPAT_TEXTURE(PrevTexture,  vTexCoord).rgb)
 #define prev1_rgb abs(1.0 - COMPAT_TEXTURE(Prev1Texture, vTexCoord).rgb)
 #define prev2_rgb abs(1.0 - COMPAT_TEXTURE(Prev2Texture, vTexCoord).rgb)
-//#define prev3_rgb abs(1.0 - COMPAT_TEXTURE(Prev3Texture, vTexCoord).rgb)
-//#define prev4_rgb abs(1.0 - COMPAT_TEXTURE(Prev4Texture, vTexCoord).rgb)
-//#define prev5_rgb abs(1.0 - COMPAT_TEXTURE(Prev5Texture, vTexCoord).rgb)
-//#define prev6_rgb abs(1.0 - COMPAT_TEXTURE(Prev6Texture, vTexCoord).rgb)
+#ifdef MORE_FRAMES
+#define prev3_rgb abs(1.0 - COMPAT_TEXTURE(Prev3Texture, vTexCoord).rgb)
+#define prev4_rgb abs(1.0 - COMPAT_TEXTURE(Prev4Texture, vTexCoord).rgb)
+#define prev5_rgb abs(1.0 - COMPAT_TEXTURE(Prev5Texture, vTexCoord).rgb)
+#define prev6_rgb abs(1.0 - COMPAT_TEXTURE(Prev6Texture, vTexCoord).rgb)
+#endif
 
 void main()
 {
@@ -182,6 +188,7 @@ void main()
     float rt  = response_time;
 	float rt2 = rt * rt;
 	float rt3 = rt * rt2;
+	// Cheve: Do not need that many textures for low response times
 	//float rt4 = rt * rt3;
 	//float rt5 = rt * rt4;
 	//float rt6 = rt * rt5;
@@ -192,10 +199,12 @@ void main()
     input_rgb += (prev1_rgb - input_rgb) * rt2;
     input_rgb += (prev2_rgb - input_rgb) * rt3;
 	// Cheve: Do not need that many textures for low response times
-    //input_rgb += (prev3_rgb - input_rgb) * rt4;
-    //input_rgb += (prev4_rgb - input_rgb) * rt5;
-    //input_rgb += (prev5_rgb - input_rgb) * rt6;
-    //input_rgb += (prev6_rgb - input_rgb) * rt7;
+	#ifdef MORE_FRAMES
+    input_rgb += (prev3_rgb - input_rgb) * rt4;
+    input_rgb += (prev4_rgb - input_rgb) * rt5;
+    input_rgb += (prev5_rgb - input_rgb) * rt6;
+    input_rgb += (prev6_rgb - input_rgb) * rt7;
+	#endif
 
 	float rgb_to_alpha = input_rgb.r/grey_balance + is_on_dot*baseline_alpha;
 
