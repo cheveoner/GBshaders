@@ -168,8 +168,8 @@ void main()
     ) * adjacent_texel_alpha_blending * blending_modifier(out_color);
 	
 	// Cheve: to debug this pass
-	out_color.rgb = out_color.rgb * out_color.a;
-	out_color.a =  1.0;
+	//out_color.rgb = out_color.rgb * out_color.a;
+	//out_color.a =  1.0;
 
     FragColor = out_color;
 } 
