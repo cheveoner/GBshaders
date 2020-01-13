@@ -135,6 +135,8 @@ uniform COMPAT_PRECISION float adjacent_texel_alpha_blending;
 // Fragment definitions                                                       //
 ////////////////////////////////////////////////////////////////////////////////
 
+//#define DEBUG
+
 #define blending_modifier(color) clamp(float(color.a == 0.) + blending_mode, 0.0, 1.0)
 
 void main()
@@ -167,9 +169,10 @@ void main()
         (out_color.a - adjacent_texel_4.a) 
     ) * adjacent_texel_alpha_blending * blending_modifier(out_color);
 	
-	// Cheve: to debug this pass
-	//out_color.rgb = out_color.rgb * out_color.a;
-	//out_color.a =  1.0;
+	#ifdef DEBUG
+	out_color.rgb = out_color.rgb * out_color.a;
+	out_color.a =  1.0;
+	#endif
 
     FragColor = out_color;
 } 

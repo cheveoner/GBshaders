@@ -163,6 +163,8 @@ uniform COMPAT_PRECISION float response_time;
 //fragment definitions                                                        //
 ////////////////////////////////////////////////////////////////////////////////
 
+//#define DEBUG
+
 #define foreground_color COMPAT_TEXTURE(COLOR_PALETTE, vec2(0.75, 0.5)).rgb                 //hardcoded to look up the foreground color from the right half of the palette image
 
 // Frame sampling definitions
@@ -217,8 +219,9 @@ void main()
     // If the fragment is not on a dot, set its alpha value to 0
     out_color.a *= is_on_dot;
 	
-	// Cheve: test 1-pass shader for rpi
-	//out_color = vec4(foreground_color * rgb_to_alpha * is_on_dot, 1.0);
+	#ifdef DEBUG
+	out_color = vec4(foreground_color * rgb_to_alpha * is_on_dot, 1.0);
+	#endif
 
     FragColor = out_color;
 } 

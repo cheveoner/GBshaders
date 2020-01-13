@@ -130,7 +130,8 @@ Normalized Gaussian weights:                     Normalized Gaussian weights:
 0.05488381664578583445722654373702
 */
 
-#define DEBUG
+//#define DEBUG
+
 void main()
 {
 	#ifdef DEBUG
