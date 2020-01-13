@@ -1,4 +1,4 @@
-shaders = 6
+shaders = 2
 
 shader0 = shader-files/gb-pass0-cheve.glsl
 filter_linear0 = false
@@ -6,7 +6,7 @@ scale_type0 = viewport
 scale0 = 1.0
 alias0 = "DOT MATRIX"
 
-shader1 = shader-files/gb-pass1.glsl
+shader1 = shader-files/gb-pass1-cheve.glsl
 filter_linear1 = false
 scale_type1 = source
 scale1 = 1.0
