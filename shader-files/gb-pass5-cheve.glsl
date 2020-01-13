@@ -1,7 +1,5 @@
 // Parameter lines go here:
 #pragma parameter SCALE "Box Scale" 0.6667 0.6667 2.5 0.1
-#pragma parameter OUT_X "Out X" 1600.0 1600.0 4800.0 8000.0
-#pragma parameter OUT_Y "Out Y" 800.0 800.0 2400.0 400.0
 
 #if defined(VERTEX)
 
@@ -33,12 +31,8 @@ uniform COMPAT_PRECISION vec2 InputSize;
 #ifdef PARAMETER_UNIFORM
 // All parameter floats need to have COMPAT_PRECISION in front of them
 uniform COMPAT_PRECISION float SCALE;
-uniform COMPAT_PRECISION float OUT_X;
-uniform COMPAT_PRECISION float OUT_Y;
 #else
 #define SCALE 0.66667
-#define OUT_X 1600.0
-#define OUT_Y 800.0
 #endif
 
 void main()
