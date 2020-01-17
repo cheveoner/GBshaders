@@ -1,8 +1,8 @@
 shaders = 4
-shader0 = ../../motionblur/shaders/response-time.glsl
-shader1 = ../shaders/color/gbc-color.glsl
-shader2 = ../shaders/retro-v2.glsl
-shader3 = shader-files/gb-pass-5.glsl
+shader0 = shader-files/response-time.glsl
+shader1 = shader-files/gbc-color.glsl
+shader2 = shader-files/retro-v2.glsl
+shader3 = shader-files/gb-pass5-cheve.glsl
 
 scale_type0 = source
 scale0 = 1
@@ -18,13 +18,6 @@ filter_linear1 = false
 filter_linear2 = false
 filter_linear3 = true
 
-textures = BORDER
-
-BORDER = resources/color-border-square-4x.png
-BORDER_linear = true
-
-parameters = "SCALE;OUT_X;OUT_Y;RETRO_PIXEL_SIZE"
+parameters = "SCALE;RETRO_PIXEL_SIZE"
 SCALE = "1.0"
-OUT_X = "2400.0"
-OUT_Y = "1200.0"
 RETRO_PIXEL_SIZE = "0.7"
