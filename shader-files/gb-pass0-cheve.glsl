@@ -208,7 +208,8 @@ void main()
     input_rgb += (prev6_rgb - input_rgb) * rt7;
 	#endif
 
-	float rgb_to_alpha = input_rgb.r/grey_balance + is_on_dot*baseline_alpha;
+	float rgb_to_alpha = dot(input_rgb, vec3(0.299, 0.587, 0.114)) / grey_balance // Luma to be compatible with both BW and RGB   
+	                     + is_on_dot*baseline_alpha;
 
     // Apply foreground color and assign alpha value
     // Apply the foreground color to all texels -
