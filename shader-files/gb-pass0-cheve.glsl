@@ -164,6 +164,7 @@ uniform COMPAT_PRECISION float response_time;
 ////////////////////////////////////////////////////////////////////////////////
 
 //#define DEBUG
+//#define MORE_FRAMES
 
 #define foreground_color COMPAT_TEXTURE(COLOR_PALETTE, vec2(0.75, 0.5)).rgb                 //hardcoded to look up the foreground color from the right half of the palette image
 
@@ -190,11 +191,6 @@ void main()
     float rt  = response_time;
 	float rt2 = rt * rt;
 	float rt3 = rt * rt2;
-	// Cheve: Do not need that many textures for low response times
-	//float rt4 = rt * rt3;
-	//float rt5 = rt * rt4;
-	//float rt6 = rt * rt5;
-	//float rt7 = rt * rt6;
 	
 	vec3 input_rgb = curr_rgb;
     input_rgb += (prev0_rgb - input_rgb) * rt;
@@ -202,6 +198,10 @@ void main()
     input_rgb += (prev2_rgb - input_rgb) * rt3;
 	// Cheve: Do not need that many textures for low response times
 	#ifdef MORE_FRAMES
+	float rt4 = rt * rt3;
+	float rt5 = rt * rt4;
+	float rt6 = rt * rt5;
+	float rt7 = rt * rt6;
     input_rgb += (prev3_rgb - input_rgb) * rt4;
     input_rgb += (prev4_rgb - input_rgb) * rt5;
     input_rgb += (prev5_rgb - input_rgb) * rt6;
