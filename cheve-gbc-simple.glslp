@@ -1,0 +1,19 @@
+shaders = "3"
+
+shader0 = "shader-files/gbc-color.glsl"
+filter_linear0 = "false"
+
+shader1 = "shader-files/lcd-cgwg/lcd-grid.glsl"
+filter_linear1 = "false"
+wrap_mode1 = "clamp_to_border"
+scale_type_x1 = "source"
+scale_x1 = "4.000000"
+scale_type_y1 = "source"
+scale_y1 = "4.000000"
+
+shader2 = "shader-files/gb-pass5-cheve.glsl"
+filter_linear2 = "true"
+
+parameters = "SCALE"
+SCALE = "1.0"
+
