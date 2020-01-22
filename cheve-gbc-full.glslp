@@ -1,7 +1,7 @@
 shaders = 4
 shader0 = shader-files/response-time.glsl
 shader1 = shader-files/gbc-color.glsl
-shader2 = shader-files/lcd-cgwg/lcd-grid-v2.glsl
+shader2 = shader-files/lcd-cgwg/lcd-grid.glsl
 shader3 = shader-files/gb-pass5-cheve.glsl
 
 scale_type0 = source

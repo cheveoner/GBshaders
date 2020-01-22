@@ -36,22 +36,14 @@
 #endif
 
 COMPAT_ATTRIBUTE vec4 VertexCoord;
-COMPAT_ATTRIBUTE vec4 COLOR;
 COMPAT_ATTRIBUTE vec4 TexCoord;
-COMPAT_VARYING vec4 COL0;
 COMPAT_VARYING vec4 TEX0;
 
 uniform mat4 MVPMatrix;
-uniform COMPAT_PRECISION int FrameDirection;
-uniform COMPAT_PRECISION int FrameCount;
-uniform COMPAT_PRECISION vec2 OutputSize;
-uniform COMPAT_PRECISION vec2 TextureSize;
-uniform COMPAT_PRECISION vec2 InputSize;
 
 void main()
 {
     gl_Position = MVPMatrix * VertexCoord;
-    COL0 = COLOR;
     TEX0.xy = TexCoord.xy;
 }
 
@@ -79,8 +71,6 @@ out COMPAT_PRECISION vec4 FragColor;
 #define COMPAT_TEXTURE texture2D
 #endif
 
-uniform COMPAT_PRECISION int FrameDirection;
-uniform COMPAT_PRECISION int FrameCount;
 uniform COMPAT_PRECISION vec2 OutputSize;
 uniform COMPAT_PRECISION vec2 TextureSize;
 uniform COMPAT_PRECISION vec2 InputSize;
@@ -178,10 +168,10 @@ void main()
                 intsmear(subpix-3.0, rsubpix, 1.5, coeffs_x),
                 intsmear(subpix-4.0, rsubpix, 1.5, coeffs_x));
 
-    if (BGR > 0.5) {
+    //if (BGR > 0.5) { // spare a branch for performance
         lcol.rgb = lcol.bgr;
         rcol.rgb = rcol.bgr;
-    }
+    //}
 
     float tcol, bcol;
     subpix = vTexCoord.y/texelSize.y - 0.4999 - float(tli.y);
