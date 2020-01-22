@@ -1,5 +1,5 @@
 // Parameter lines go here:
-#pragma parameter SCALE "Box Scale" 0.6667 0.6667 2.5 0.1
+#pragma parameter SCALE "Box Scale" 0.6667 0.5 2.5 0.01
 
 #if defined(VERTEX)
 

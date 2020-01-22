@@ -1,3 +1,5 @@
+// Cheve: TODO move texture offsets to vertex shader for peformance 
+
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // Gameboy Classic Shader v0.2.2                                         //
