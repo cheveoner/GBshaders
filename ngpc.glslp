@@ -14,6 +14,6 @@ wrap_mode1 = "clamp_to_border"
 
 parameters = "box_scale;in_res_x;in_res_y;"
 GRID_STRENGTH = "0.150000"
-box_scale = "3.0"
+box_scale = "1.0"
 in_res_x = "160.0"
 in_res_y = "152.0"
