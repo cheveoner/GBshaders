@@ -37,7 +37,7 @@
 // Set video scale when used in console-border shaders
 #pragma parameter video_scale "Video Scale" 3.0 2.0 6.0 1.0 // it must be an integer number
 
-#pragma parameter grid_alpha "Grid Alpha" 0.5 0.0 1.0 0.1
+#pragma parameter grid_alpha "Grid Alpha" 1.0 0.0 1.0 0.1
 
 #if defined(VERTEX)
 ////////////////////////////////////////////////////////////////////////////////
@@ -220,7 +220,7 @@ void main()
     
     // Overlay the matrix
     // If the fragment is not on a dot, set its alpha value to 0
-	out_color.a = is_on_dot*out_color.a + (1-is_on_dot)*grid_alpha;
+	out_color.a = is_on_dot*out_color.a + max(1.0-is_on_dot, 0.0)*grid_alpha;
 	
 	#ifdef DEBUG
 	out_color = vec4(foreground_color * rgb_to_alpha * is_on_dot, 1.0);

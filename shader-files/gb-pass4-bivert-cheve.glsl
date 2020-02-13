@@ -25,31 +25,19 @@
 
 // Useful to fine-tune the colors.
 // Higher values make the "black" color closer to black - [0, 1] [DEFAULT: 0.95]
-#pragma parameter contrast "Contrast" 0.70 0.0 1.0 0.05
+#pragma parameter contrast "Contrast" 1.0 0.0 1.0 0.05
 
 // Controls the ambient light of the screen. 
 // Lower values darken the screen - [0, 2] [DEFAULT: 1.00]
-#pragma parameter screen_light "Ambient Screen Light" 0.85 0.0 2.0 0.05
+#pragma parameter screen_light "Ambient Screen Light" 1.75 0.0 2.0 0.05
 
 // Controls the opacity of the dot-matrix pixels. 
 // Lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
-#pragma parameter pixel_opacity "Pixel Opacity" 0.9 0.01 1.0 0.01
+#pragma parameter pixel_opacity "Pixel Opacity" 1.0 0.01 1.0 0.01
 
 // Higher values suppress changes in background color directly beneath
 // the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
 #pragma parameter bg_smoothing "Background Smooth" 0.0 0.0 1.0 0.05
-
-// How strongly shadows affect the background
-// Higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
-#pragma parameter shadow_opacity "Shadow Opacity" 0.60 0.0 1.0 0.01
-
-// How far the shadow should be shifted to the
-// right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
-#pragma parameter shadow_offset_x "Shadow Offset Horiz" -1.5 -5.0 5.0 0.5
-
-// How far the shadow should be shifted
-// down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
-#pragma parameter shadow_offset_y "Shadow Offset Vert" 1.5 -5.0 5.0 0.5
 
 // Screen offset - [-infinity, infinity] [DEFAULT: 0]
 #pragma parameter screen_offset_x "Screen Offset Horiz" 0.0 -5.0 5.0 0.5
@@ -121,7 +109,6 @@ precision mediump float;
 uniform sampler2D Texture;
 uniform sampler2D BACKGROUND;
 uniform sampler2D COLOR_PALETTE;
-uniform sampler2D Pass2Texture;
 COMPAT_VARYING vec4 TEX0;
 COMPAT_VARYING vec2 texel;
 
@@ -138,9 +125,6 @@ uniform COMPAT_PRECISION float contrast;
 uniform COMPAT_PRECISION float screen_light;
 uniform COMPAT_PRECISION float pixel_opacity;
 uniform COMPAT_PRECISION float bg_smoothing;
-uniform COMPAT_PRECISION float shadow_opacity;
-uniform COMPAT_PRECISION float shadow_offset_x;
-uniform COMPAT_PRECISION float shadow_offset_y;
 uniform COMPAT_PRECISION float screen_offset_x;
 uniform COMPAT_PRECISION float screen_offset_y;
 #else
@@ -148,20 +132,11 @@ uniform COMPAT_PRECISION float screen_offset_y;
 #define screen_light 1.0
 #define pixel_opacity 1.0
 #define bg_smoothing 0.75
-#define shadow_opacity 0.55
-#define shadow_offset_x 1.0
-#define shadow_offset_y 1.0
 #define screen_offset_x 0.0
 #define screen_offset_y 0.0
 #endif
 
 #define bg_color COMPAT_TEXTURE(COLOR_PALETTE, vec2(0.25, 0.5)) 
-
-// Sample the background color from the palette
-#define shadow_alpha (contrast * shadow_opacity)
-
-// Offset for the shadow
-#define shadow_offset vec2(shadow_offset_x * texel.x, shadow_offset_y * texel.y)    
 
 // Offset for the entire screen
 #define screen_offset vec2(screen_offset_x * texel.x, screen_offset_y * texel.y) 
@@ -171,9 +146,8 @@ void main()
     vec2 tex = vTexCoord.xy;
     
     // Sample all the relevant textures
-    vec4 foreground = COMPAT_TEXTURE(Pass2Texture, tex - screen_offset);
+    vec4 foreground = COMPAT_TEXTURE(Source, tex - screen_offset);
     vec4 background = COMPAT_TEXTURE(BACKGROUND, vTexCoord);
-    vec4 shadows    = COMPAT_TEXTURE(Source, vTexCoord - (shadow_offset + screen_offset));
     vec4 background_color = bg_color;
 	
     // Foreground and background are blended with the background color
