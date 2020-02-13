@@ -35,10 +35,6 @@
 // Lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
 #pragma parameter pixel_opacity "Pixel Opacity" 1.0 0.01 1.0 0.01
 
-// Higher values suppress changes in background color directly beneath
-// the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
-#pragma parameter bg_smoothing "Background Smooth" 0.0 0.0 1.0 0.05
-
 // Screen offset - [-infinity, infinity] [DEFAULT: 0]
 #pragma parameter screen_offset_x "Screen Offset Horiz" 0.0 -5.0 5.0 0.5
 
@@ -124,14 +120,12 @@ COMPAT_VARYING vec2 texel;
 uniform COMPAT_PRECISION float contrast;
 uniform COMPAT_PRECISION float screen_light;
 uniform COMPAT_PRECISION float pixel_opacity;
-uniform COMPAT_PRECISION float bg_smoothing;
 uniform COMPAT_PRECISION float screen_offset_x;
 uniform COMPAT_PRECISION float screen_offset_y;
 #else
 #define contrast 0.95
 #define screen_light 1.0
 #define pixel_opacity 1.0
-#define bg_smoothing 0.75
 #define screen_offset_x 0.0
 #define screen_offset_y 0.0
 #endif
@@ -150,9 +144,6 @@ void main()
     vec4 background = COMPAT_TEXTURE(BACKGROUND, vTexCoord);
     vec4 background_color = bg_color;
 	
-    // Foreground and background are blended with the background color
-    //background -= (background - 0.5) * bg_smoothing * float(foreground.a < 1.0); //suppress drastic background color changes under the foreground to improve clarity
-
     // Allows for highlights,
     // background = bg_color when the background color is 0.5 gray
     background.rgb = clamp(

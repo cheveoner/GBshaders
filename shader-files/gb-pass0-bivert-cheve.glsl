@@ -28,7 +28,7 @@
 #pragma parameter baseline_alpha "Baseline Alpha" 0.05 0.0 1.0 0.01
 
 // Fine-tune the balance between the different shades of grey
-#pragma parameter grey_balance "Grey Balance" 0.87 0.67 1.33 0.1   // original 2.6 2.0 4.0 0.1 divided by 3
+#pragma parameter grey_balance "Grey Balance" 0.67 0.67 1.33 0.1   // original 2.6 2.0 4.0 0.1 divided by 3
 
 // Simulate response time
 // Higher values result in longer color transition periods - [0, 1]
